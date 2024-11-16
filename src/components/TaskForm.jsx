@@ -1,15 +1,21 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"
 import { addTask } from "../features/task/taskSlice"
 
 function TaskForm() {
 
     const [taskInput, setTaskInput] = useState("")
     const dispatch = useDispatch()
+    const tasks = useSelector(state => state.task);
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }, [tasks]);
 
     const addTaskHandler = (e) => {
         e.preventDefault()
         if(taskInput.trim() !== "") {
+
             dispatch(addTask(taskInput))
             setTaskInput("")
         }

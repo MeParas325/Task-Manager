@@ -3,11 +3,12 @@ import { removeTask, taskCompleted } from "../features/task/taskSlice";
 
 function TaskItem({ task }) {
 
-    const tasks = useSelector(state => state.tasks)
+    const tasks = useSelector(state => state.task)
     const dispatch = useDispatch()
 
     const deleteTaskHandler = (taskId) => {
         dispatch(removeTask(taskId))
+        localStorage.setItem("tasks", JSON.stringify(tasks))
 
     }
 

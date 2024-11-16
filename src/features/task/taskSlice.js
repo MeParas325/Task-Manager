@@ -1,13 +1,13 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-const initialState = {
-    tasks: []
-}
-
 export const taskSlice = createSlice({
     name: 'task',
-    initialState,
+    initialState: [],
     reducers: {
+
+        addAllTasks: (state, action) => {
+            return action.payload
+        },
         addTask: (state, action) => {
 
             const task = {
@@ -16,20 +16,20 @@ export const taskSlice = createSlice({
                 completed: false,
             }
 
-            state.tasks.push(task)
+            state.push(task)
 
         },
         removeTask: (state, action) => {
-            state.tasks = state.tasks.filter((task) => task.id !== action.payload)
+            state = state.filter((task) => task.id !== action.payload)
 
         },
 
         taskCompleted: (state, action) => {
-            state.tasks = state.tasks.map((task) => task.id === action.payload ? {...task, completed: !task.completed} : task)
+            state = state.map((task) => task.id === action.payload ? {...task, completed: !task.completed} : task)
         }
     }
 
 })
 
-export const {addTask, removeTask, taskCompleted} =  taskSlice.actions
+export const {addTask, removeTask, taskCompleted, addAllTasks} =  taskSlice.actions
 export default taskSlice.reducer
